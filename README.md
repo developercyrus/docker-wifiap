@@ -1,4 +1,4 @@
-### for ubuntu only
+### For ubuntu only
 
 ### Start (privilege granted, rule created)
 ```bash
