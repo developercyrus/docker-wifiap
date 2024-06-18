@@ -1,3 +1,5 @@
+### for ubuntu only
+
 ### Start (privilege granted, rule created)
 ```bash
 sudo docker run --rm \
