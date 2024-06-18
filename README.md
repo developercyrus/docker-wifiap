@@ -5,6 +5,7 @@ sudo docker run --rm \
   --network host \
   -e WIFI_INTERFACE=wlxe84e0619ceab \
   -e OUTGOING_INTERFACE=ens33 \
+  -e HOST_VERSION=22.04 \
   --name wifiap \
   developercyrus/wifiap
 ```
