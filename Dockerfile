@@ -1,10 +1,11 @@
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 
 RUN apt -y update
 RUN apt -y install \ 
            hostapd \
            dnsmasq \
-           iptables
+           iptables \
+           iw     
 RUN apt -y install net-tools # ipconfig   
 RUN apt -y install iproute2  # ip route      
 

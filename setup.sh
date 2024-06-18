@@ -21,13 +21,34 @@ ifconfig
 # list route table
 ip route
 
+# set iw
+iw reg set US
+
+# check iw
+iw reg get
+
 # Capture the default gateway
 DEFAULT_GATEWAY=$(ip route | grep 'default via' | awk '{print $3}')
 
-IPTABLES_CMD=$(command -v iptables)
-if [ -x "/usr/sbin/iptables-legacy" ]; then
-    IPTABLES_CMD="/usr/sbin/iptables-legacy"
+CONTAINER_VERSION=$(sed -n 's/^VERSION_ID="\([0-9.]*\)"/\1/p' /etc/os-release)
+echo $CONTAINER_VERSION
+
+
+
+# Ensure you're using the same version of iptables within your container that your host is using. If your host is using iptables-legacy, then your container should also use iptables-legacy.
+if [[ $(printf '%s\n' "$CONTAINER_VERSION" "$HOST_VERSION" | sort -V | head -n 1) != "$HOST_VERSION" ]] ; then
+  if [[ "$CONTAINER_VERSION" == "$HOST_VERSION" ]]; then
+    echo "$CONTAINER_VERSION is equal to $HOST_VERSION"
+    IPTABLES_CMD="/usr/sbin/iptables"
+  else
+    echo "$CONTAINER_VERSION is less than $HOST_VERSION"
+    IPTABLES_CMD="/usr/sbin/iptables"
+  fi
+else
+  echo "$CONTAINER_VERSION is greater than $HOST_VERSION"
+  IPTABLES_CMD="/usr/sbin/iptables-legacy"
 fi
+
 
 # Clean up existing iptables rules to avoid conflicts
 #iptables -t nat -F
