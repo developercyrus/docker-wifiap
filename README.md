@@ -1,4 +1,4 @@
-### Start
+### Start (privilege granted, rule created)
 ```bash
 sudo docker run --rm \
   --privileged \
@@ -9,7 +9,7 @@ sudo docker run --rm \
   developercyrus/wifiap
 ```
 
-### End
+### End (rule cleansing)
 ```bash
 sudo docker stop wifiap
 
